@@ -47,16 +47,19 @@ const deinflectRegular = (terms, inflections, inflectionType, processAsAdded) =>
 
     for (let j = 0; j < inflections.length; j++) {
       const inflection = inflections[j];
-      const deinflectedWord = deinflectWord(deinflection.baseForm, inflection);
-
-      if (deinflection.inflectionType == InflectionType.ADJECTIVE && !isAuxAdjective(inflection.form)) {
+      if (deinflection.inflectionType === InflectionType.ADJECTIVE && !isAuxAdjective(inflection.form)) {
         continue;
-      } else if (
-        deinflectedWord != null &&
-        (!(inflectionType == InflectionType.ICHIDAN) || hasIchidanEnding(deinflectedWord))
-      ) {
-        terms.push(new Deinflection(deinflection.baseForm, deinflectedWord, inflection.form, inflectionType));
       }
+
+      const deinflectedWord = deinflectWord(deinflection.baseForm, inflection);
+      if (!deinflectedWord) {
+        continue;
+      }
+
+      if (inflectionType === InflectionType.ICHIDAN && !hasIchidanEnding(deinflectedWord)) {
+        continue;
+      }
+      terms.push(new Deinflection(deinflection.baseForm, deinflectedWord, inflection.form, inflectionType));
     }
   }
 };
@@ -73,14 +76,17 @@ const hasIchidanEnding = word => {
 };
 
 const deinflectWord = (inflectedWord, inflection) => {
-  if (inflectedWord.endsWith(inflection.inflection)) {
-    const endIndex = inflectedWord.length - inflection.inflection.length;
-    const baseWord = inflectedWord.substring(0, endIndex) + inflection.base;
-    if (baseWord.length > 1) {
-      return baseWord;
-    }
+  if (!inflectedWord.endsWith(inflection.inflection)) {
+    return null;
   }
-  return null;
+
+  const endIndex = inflectedWord.length - inflection.inflection.length;
+  const baseWord = inflectedWord.substring(0, endIndex) + inflection.base;
+  if (baseWord.length <= 1) {
+    return null;
+  }
+
+  return baseWord;
 };
 
 const deinflectIrregular = (terms, inflections, inflectionType) => {
