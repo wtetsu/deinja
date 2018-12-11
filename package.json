@@ -1,0 +1,22 @@
+{
+  "name": "deinja",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/deinja.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "jest": "^23.6.0"
+  },
+  "scripts": {
+    "lint": "eslint src/*.js",
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtetsu/deinja.git"
+  },
+  "author": "wtetsu",
+  "license": "Apache-2.0"
+}
