@@ -163,7 +163,7 @@ test("kou", () => {
 const testDeinflections = (base, ...args) => {
   for (let i = 0; i < args.length; i++) {
     const words = deinja.convert(args[i]);
-    const found = words.find(w => w.baseForm === base);
+    const found = words.find(w => w === base);
     expect(found).toBeTruthy();
   }
 };
