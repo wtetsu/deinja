@@ -6,7 +6,7 @@ const InflectionType = require("./inflectiontype");
 const UniqList = require("uniqlist");
 
 const convert = word => {
-  return deinflect(word);
+  return deinflect(word).map(d => d.baseForm);
 };
 
 const KEY = "inflection";
