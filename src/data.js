@@ -587,7 +587,8 @@ const BOGUS_INFLECTIONS = [
   "べつ",
   "やつ",
   "らる",
-  "んでしる"
+  "んでしる",
+  "にる"
 ];
 
 module.exports = {

@@ -2,46 +2,49 @@ const data = require("./data");
 const Deinflection = require("./deinflection");
 const Form = require("./form");
 const TailSearcher = require("./tailsearcher");
-const InflectionType = require("./Inflectiontype");
+const InflectionType = require("./inflectiontype");
+const UniqList = require("uniqlist");
 
 const convert = word => {
   return deinflect(word);
 };
 
 const KEY = "inflection";
-const adjectiveInflectionMap = new TailSearcher(data.ADJECTIVE_INFLECTIONS, KEY);
-const ichidanInflectionMap = new TailSearcher(data.ICHIDAN_INFLECTIONS, KEY);
-const godanInflectionMap = new TailSearcher(data.GODAN_INFLECTIONS, KEY);
+const adjectiveSearcher = new TailSearcher(data.ADJECTIVE_INFLECTIONS, KEY);
+const ichidanSearcher = new TailSearcher(data.ICHIDAN_INFLECTIONS, KEY);
+const godanSearcher = new TailSearcher(data.GODAN_INFLECTIONS, KEY);
 
-const suruInflectionMap = new TailSearcher(data.SURU_INFLECTIONS, KEY);
-const kuruInflectionMap = new TailSearcher(data.KURU_INFLECTIONS, KEY);
-const specialInflectionMap = new TailSearcher(data.SPECIAL_INFLECTIONS, KEY);
-const ikuInflectionMap = new TailSearcher(data.IKU_INFLECTIONS, KEY);
+const suruSearcher = new TailSearcher(data.SURU_INFLECTIONS, KEY);
+const kuruSearcher = new TailSearcher(data.KURU_INFLECTIONS, KEY);
+const specialSearcher = new TailSearcher(data.SPECIAL_INFLECTIONS, KEY);
+const ikuSearcher = new TailSearcher(data.IKU_INFLECTIONS, KEY);
+
+const bogusSearcher = new TailSearcher(data.BOGUS_INFLECTIONS);
 
 const deinflect = inflectedWord => {
-  const terms = [];
+  const terms = new UniqList();
   terms.push(new Deinflection(inflectedWord, inflectedWord, -1, -1));
 
-  deinflectRegular(terms, adjectiveInflectionMap, InflectionType.ADJECTIVE, true);
-  deinflectRegular(terms, ichidanInflectionMap, InflectionType.ICHIDAN, true);
-  deinflectRegular(terms, godanInflectionMap, InflectionType.GODAN, false);
+  deinflectRegular(terms, adjectiveSearcher, InflectionType.ADJECTIVE, true);
+  deinflectRegular(terms, ichidanSearcher, InflectionType.ICHIDAN, true);
+  deinflectRegular(terms, godanSearcher, InflectionType.GODAN, false);
 
-  deinflectIrregular(terms, suruInflectionMap, InflectionType.SURU);
-  deinflectIrregular(terms, kuruInflectionMap, InflectionType.KURU);
-  deinflectIrregular(terms, specialInflectionMap, InflectionType.SPECIAL);
-  deinflectIrregular(terms, ikuInflectionMap, InflectionType.IKU);
+  deinflectIrregular(terms, suruSearcher, InflectionType.SURU);
+  deinflectIrregular(terms, kuruSearcher, InflectionType.KURU);
+  deinflectIrregular(terms, specialSearcher, InflectionType.SPECIAL);
+  deinflectIrregular(terms, ikuSearcher, InflectionType.IKU);
 
-  return filterBogusEndings(terms);
+  return filterBogusEndings(terms.array, bogusSearcher);
 };
 
-const deinflectRegular = (terms, inflectionMap, inflectionType, processAsAdded) => {
-  const initialSize = terms.length;
-  for (let i = 0; i < terms.length; i++) {
+const deinflectRegular = (terms, inflectionSearcher, inflectionType, processAsAdded) => {
+  const initialSize = terms.size();
+  for (let i = 0; i < terms.size(); i++) {
     if (!processAsAdded && i >= initialSize) {
       break;
     }
-    const deinflection = terms[i];
-    const inflections = inflectionMap.search(deinflection.baseForm);
+    const deinflection = terms.get(i);
+    const inflections = inflectionSearcher.search(deinflection.baseForm);
 
     for (let j = 0; j < inflections.length; j++) {
       const inflection = inflections[j];
@@ -55,7 +58,8 @@ const deinflectRegular = (terms, inflectionMap, inflectionType, processAsAdded) 
       if (inflectionType === InflectionType.ICHIDAN && !hasIchidanEnding(deinflectedWord)) {
         continue;
       }
-      terms.push(new Deinflection(deinflection.baseForm, deinflectedWord, inflection.form, inflectionType));
+      const newRecord = new Deinflection(deinflection.baseForm, deinflectedWord, inflection.form, inflectionType);
+      terms.push(newRecord, deinflectedWord);
     }
   }
 };
@@ -89,38 +93,32 @@ const deinflectWord = (inflectedWord, inflection) => {
   return baseWord;
 };
 
-const deinflectIrregular = (terms, inflectionMap, inflectionType) => {
-  const initialSize = terms.length;
+const deinflectIrregular = (terms, inflectionSearcher, inflectionType) => {
+  const initialSize = terms.size();
   for (let i = 0; i < initialSize; i++) {
-    const deinflection = terms[i];
+    const deinflection = terms.get(i);
 
-    const inflections = inflectionMap.search(deinflection.baseForm);
+    const inflections = inflectionSearcher.search(deinflection.baseForm);
     for (let j = 0; j < inflections.length; j++) {
       const inflection = inflections[j];
       if (inflection.inflection === deinflection.baseForm) {
         const word = inflection.base;
-        terms.push(new Deinflection(deinflection.baseForm, word, inflection.form, inflectionType));
+        const newRecord = new Deinflection(deinflection.baseForm, word, inflection.form, inflectionType);
+        terms.push(newRecord, word);
       }
     }
   }
 };
 
-const filterBogusEndings = terms => {
+const filterBogusEndings = (terms, bogusSearcher) => {
   const result = [];
   for (let i = 0; i < terms.length; i++) {
     const deinflection = terms[i];
     if (deinflection.baseForm === deinflection.inflectedWord) {
       continue;
     }
-    let shouldInclude = true;
-    for (let j = 0; j < data.BOGUS_INFLECTIONS.length; j++) {
-      const bogusEnding = data.BOGUS_INFLECTIONS[j];
-      if (deinflection.baseForm.endsWith(bogusEnding)) {
-        shouldInclude = false;
-        break;
-      }
-    }
-    if (shouldInclude) {
+    const isInvalid = bogusSearcher.find(deinflection.baseForm);
+    if (!isInvalid) {
       result.push(deinflection);
     }
   }

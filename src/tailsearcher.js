@@ -10,8 +10,14 @@ class TailSearcher {
     const map = {};
     for (let i = 0; i < list.length; i++) {
       const obj = list[i];
-      const str = obj[key];
-      map[str] = obj;
+      const str = key ? obj[key] : obj;
+
+      let arr = map[str];
+      if (!arr) {
+        arr = [];
+        map[str] = arr;
+      }
+      arr.push(obj);
 
       if (maxLength < str.length) {
         maxLength = str.length;
@@ -26,7 +32,20 @@ class TailSearcher {
       const tail = str.substring(str.length - i, str.length);
       const r = this.map[tail];
       if (r) {
-        result.push(r);
+        result.push(...r);
+      }
+    }
+    return result;
+  }
+
+  find(str) {
+    let result = null;
+    for (let i = this.maxLength; i >= 1; i--) {
+      const tail = str.substring(str.length - i, str.length);
+      const r = this.map[tail];
+      if (r) {
+        result = true;
+        break;
       }
     }
     return result;
