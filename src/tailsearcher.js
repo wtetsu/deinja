@@ -28,7 +28,9 @@ class TailSearcher {
 
   search(str) {
     const result = [];
-    for (let i = this.maxLength; i >= 1; i--) {
+    const len = str.length < this.maxLength ? str.length : this.maxLength;
+
+    for (let i = len; i >= 1; i--) {
       const tail = str.substring(str.length - i, str.length);
       const r = this.map[tail];
       if (r) {
@@ -40,7 +42,8 @@ class TailSearcher {
 
   find(str) {
     let result = null;
-    for (let i = this.maxLength; i >= 1; i--) {
+    const len = str.length < this.maxLength ? str.length : this.maxLength;
+    for (let i = len; i >= 1; i--) {
       const tail = str.substring(str.length - i, str.length);
       const r = this.map[tail];
       if (r) {
