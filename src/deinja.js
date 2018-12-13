@@ -1,6 +1,7 @@
 const data = require("./data");
-const Deinflection = require("./deinflection");
+
 const Form = require("./form");
+const Deinflection = require("./deinflection");
 const TailSearcher = require("./tailsearcher");
 const InflectionType = require("./inflectiontype");
 const UniqList = require("uniqlist");
@@ -9,32 +10,33 @@ const convert = word => {
   return deinflect(word).map(d => d.baseForm);
 };
 
-const KEY = "inflection";
-const adjectiveSearcher = new TailSearcher(data.ADJECTIVE_INFLECTIONS, KEY);
-const ichidanSearcher = new TailSearcher(data.ICHIDAN_INFLECTIONS, KEY);
-const godanSearcher = new TailSearcher(data.GODAN_INFLECTIONS, KEY);
+const SEARCHER = {
+  ADJECTIVE: new TailSearcher(data.ADJECTIVE_INFLECTIONS, "inflection"),
+  ICHIDAN: new TailSearcher(data.ICHIDAN_INFLECTIONS, "inflection"),
+  GODAN: new TailSearcher(data.GODAN_INFLECTIONS, "inflection"),
+  SURU: new TailSearcher(data.SURU_INFLECTIONS, "inflection"),
+  KURU: new TailSearcher(data.KURU_INFLECTIONS, "inflection"),
+  SPECIAL: new TailSearcher(data.SPECIAL_INFLECTIONS, "inflection"),
+  IKU: new TailSearcher(data.IKU_INFLECTIONS, "inflection"),
+  BOGUS: new TailSearcher(data.BOGUS_INFLECTIONS)
+};
 
-const suruSearcher = new TailSearcher(data.SURU_INFLECTIONS, KEY);
-const kuruSearcher = new TailSearcher(data.KURU_INFLECTIONS, KEY);
-const specialSearcher = new TailSearcher(data.SPECIAL_INFLECTIONS, KEY);
-const ikuSearcher = new TailSearcher(data.IKU_INFLECTIONS, KEY);
-
-const bogusSearcher = new TailSearcher(data.BOGUS_INFLECTIONS);
+const AUX_ADJECTIVE_TYPES = new Set([Form.TAI, Form.SOU, Form.NEGATIVE]);
 
 const deinflect = inflectedWord => {
   const terms = new UniqList();
   terms.push(new Deinflection(inflectedWord, inflectedWord, -1, -1));
 
-  deinflectRegular(terms, adjectiveSearcher, InflectionType.ADJECTIVE, true);
-  deinflectRegular(terms, ichidanSearcher, InflectionType.ICHIDAN, true);
-  deinflectRegular(terms, godanSearcher, InflectionType.GODAN, false);
+  deinflectRegular(terms, SEARCHER.ADJECTIVE, InflectionType.ADJECTIVE, true);
+  deinflectRegular(terms, SEARCHER.ICHIDAN, InflectionType.ICHIDAN, true);
+  deinflectRegular(terms, SEARCHER.GODAN, InflectionType.GODAN, false);
 
-  deinflectIrregular(terms, suruSearcher, InflectionType.SURU);
-  deinflectIrregular(terms, kuruSearcher, InflectionType.KURU);
-  deinflectIrregular(terms, specialSearcher, InflectionType.SPECIAL);
-  deinflectIrregular(terms, ikuSearcher, InflectionType.IKU);
+  deinflectIrregular(terms, SEARCHER.SURU, InflectionType.SURU);
+  deinflectIrregular(terms, SEARCHER.KURU, InflectionType.KURU);
+  deinflectIrregular(terms, SEARCHER.SPECIAL, InflectionType.SPECIAL);
+  deinflectIrregular(terms, SEARCHER.IKU, InflectionType.IKU);
 
-  return filterBogusEndings(terms.array, bogusSearcher);
+  return filterBogusEndings(terms.array, SEARCHER.BOGUS);
 };
 
 const deinflectRegular = (terms, inflectionSearcher, inflectionType, processAsAdded) => {
@@ -64,18 +66,17 @@ const deinflectRegular = (terms, inflectionSearcher, inflectionType, processAsAd
   }
 };
 
-const auxAdjectiveTypes = new Set([Form.TAI, Form.SOU, Form.NEGATIVE]);
-
 const isAuxAdjective = form => {
-  return auxAdjectiveTypes.has(form);
+  return AUX_ADJECTIVE_TYPES.has(form);
 };
 
 const hasIchidanEnding = word => {
-  if (word.length < 2) {
+  const len = word.length;
+  if (len <= 1) {
     return false;
   }
 
-  const s = word.substring(word.length - 2, word.length - 1);
+  const s = word.substring(len - 2, len - 1);
   return data.ICHIDAN[s];
 };
 
