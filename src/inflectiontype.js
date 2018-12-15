@@ -1,6 +1,6 @@
 /*
  * deinja
- * Copyright (C) wtetsu
+ * Copyright (C) 2018 wtetsu
  * https://github.com/wtetsu/deinja
  *
  * Originally based on deinflector
