@@ -1,0 +1,28 @@
+version: "2"
+checks:
+  method-lines:
+    enabled: true
+    config:
+      threshold: 150
+  method-complexity:
+    enabled: true
+    config:
+      threshold: 25
+  file-lines:
+    config:
+      threshold: 500
+plugins:
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript:
+          count_threshold: 3
+          patterns:
+            - "*.js"
+exclude_paths:
+  - "__test__/"
