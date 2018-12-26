@@ -1,7 +1,7 @@
 {
   "name": "deinja",
   "version": "0.0.1",
-  "description": "",
+  "description": "Convert Japanese words into original forms",
   "main": "src/deinja.js",
   "dependencies": {
     "uniqlist": "^1.0.4"
@@ -19,6 +19,14 @@
     "type": "git",
     "url": "git+https://github.com/wtetsu/deinja.git"
   },
+  "keywords": [
+    "Japanese",
+    "text"
+  ],
   "author": "wtetsu",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/wtetsu/deinja/issues"
+  },
+  "homepage": "https://github.com/wtetsu/deinja#readme"
 }
