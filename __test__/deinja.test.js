@@ -160,6 +160,21 @@ test("kou", () => {
   );
 });
 
+test("aisuru", () => {
+  testDeinflections(
+    "愛する",
+    "愛させる",
+    "愛さない",
+    "愛される",
+    "愛しそう",
+    "愛したい",
+    "愛したら",
+    "愛したり",
+    "愛します",
+    "愛します"
+  );
+});
+
 const testDeinflections = (base, ...args) => {
   for (let i = 0; i < args.length; i++) {
     const words = deinja.convert(args[i]);
