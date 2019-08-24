@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
-const build = require("./build");
-const data = require("./data");
+import build from "./build";
+import data from "./data";
 
-module.exports = build(data);
+const convert = build(data);
+
+export default convert;

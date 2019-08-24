@@ -1,4 +1,4 @@
-const deinja = require("../src/deinja");
+import deinja from "../src/deinja";
 
 test("adjectiveTwoChar", () => {
   testDeinflections(
@@ -153,7 +153,18 @@ test("kuruKanji", () => {
 });
 
 test("iku", () => {
-  testDeinflections("いく", "いっちゃう", "いっちゃいます", "いっちゃった", "いっちゃえ", "いっちゃおう", "いったら", "いったり", "いって", "いった");
+  testDeinflections(
+    "いく",
+    "いっちゃう",
+    "いっちゃいます",
+    "いっちゃった",
+    "いっちゃえ",
+    "いっちゃおう",
+    "いったら",
+    "いったり",
+    "いって",
+    "いった"
+  );
 });
 
 test("tou", () => {

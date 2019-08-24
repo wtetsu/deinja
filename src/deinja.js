@@ -15,10 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const build = require("./build");
-const convert = require("./convert");
+import build from "./build";
+import convert from "./convert";
 
-module.exports = {
-  build: build,
-  convert: convert
-};
+export default { build, convert };

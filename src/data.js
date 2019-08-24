@@ -19,7 +19,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Form = require("./form");
+import Form from "./form";
 
 class Inflection {
   constructor(inflection, base, form) {
@@ -569,7 +569,7 @@ const BOGUS_INFLECTIONS = [
   "にる"
 ];
 
-module.exports = {
+export default {
   Form,
   ADJECTIVE_INFLECTIONS,
   ICHIDAN_INFLECTIONS,

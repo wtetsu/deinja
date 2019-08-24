@@ -32,4 +32,4 @@ class Deinflection {
   }
 }
 
-module.exports = Deinflection;
+export default Deinflection;
