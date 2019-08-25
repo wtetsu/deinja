@@ -30,33 +30,46 @@ const build = data => {
 
 export default build;
 
+class Inflection {
+  constructor(inflection, base, form) {
+    this.inflection = inflection;
+    this.base = base;
+    this.form = form;
+  }
+}
+
 const createSearchers = data => {
   return {
-    ADJECTIVE: new TailSearcher(data.ADJECTIVE_INFLECTIONS, "inflection"),
-    ICHIDAN: new TailSearcher(data.ICHIDAN_INFLECTIONS, "inflection"),
-    GODAN: new TailSearcher(data.GODAN_INFLECTIONS, "inflection"),
-    SURU: new TailSearcher(data.SURU_INFLECTIONS, "inflection"),
-    KURU: new TailSearcher(data.KURU_INFLECTIONS, "inflection"),
-    SPECIAL: new TailSearcher(data.SPECIAL_INFLECTIONS, "inflection"),
-    IKU: new TailSearcher(data.IKU_INFLECTIONS, "inflection"),
-    BOGUS: new TailSearcher(data.BOGUS_INFLECTIONS)
+    adjective: createTailSearcher(data.adjective, "inflection"),
+    ichidan: createTailSearcher(data.ichidan, "inflection"),
+    godan: createTailSearcher(data.godan, "inflection"),
+    suru: createTailSearcher(data.suru, "inflection"),
+    kuru: createTailSearcher(data.kuru, "inflection"),
+    special: createTailSearcher(data.special, "inflection"),
+    iku: createTailSearcher(data.iku, "inflection"),
+    bogus: createTailSearcher(data.bogus)
   };
+};
+
+const createTailSearcher = (list, key) => {
+  const data = list.map(a => new Inflection(...a));
+  return new TailSearcher(data, key);
 };
 
 const deinflect = (inflectedWord, searchers) => {
   const terms = new UniqList();
   terms.push(new Deinflection(inflectedWord, inflectedWord, -1, -1));
 
-  deinflectRegular(terms, searchers.ADJECTIVE, InflectionType.ADJECTIVE, true);
-  deinflectRegular(terms, searchers.ICHIDAN, InflectionType.ICHIDAN, true);
-  deinflectRegular(terms, searchers.GODAN, InflectionType.GODAN, false);
+  deinflectRegular(terms, searchers.adjective, InflectionType.ADJECTIVE, true);
+  deinflectRegular(terms, searchers.ichidan, InflectionType.ICHIDAN, true);
+  deinflectRegular(terms, searchers.godan, InflectionType.GODAN, false);
 
-  deinflectIrregular(terms, searchers.SURU, InflectionType.SURU);
-  deinflectIrregular(terms, searchers.KURU, InflectionType.KURU);
-  deinflectIrregular(terms, searchers.SPECIAL, InflectionType.SPECIAL);
-  deinflectIrregular(terms, searchers.IKU, InflectionType.IKU);
+  deinflectIrregular(terms, searchers.suru, InflectionType.SURU);
+  deinflectIrregular(terms, searchers.kuru, InflectionType.KURU);
+  deinflectIrregular(terms, searchers.special, InflectionType.SPECIAL);
+  deinflectIrregular(terms, searchers.iku, InflectionType.IKU);
 
-  return filterBogusEndings(terms.array, searchers.BOGUS);
+  return filterBogusEndings(terms.array, searchers.bogus);
 };
 
 const deinflectRegular = (terms, inflectionSearcher, inflectionType, processAsAdded) => {

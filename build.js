@@ -15,6 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import build from "./build";
+import build from "./src/build";
 
 export default build;
