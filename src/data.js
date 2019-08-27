@@ -21,7 +21,9 @@
  */
 import Form from "./form";
 
-const suru = [
+const data = {};
+
+data.suru = [
   ["しませんでした", "する", Form.POLITE_PAST_NEGATIVE],
   ["しましょう", "する", Form.POLITE_VOLITIONAL],
   ["した", "する", Form.PAST],
@@ -45,7 +47,7 @@ const suru = [
   ["しよう", "する", Form.VOLITIONAL]
 ];
 
-const kuru = [
+data.kuru = [
   ["来すぎる", "来る", Form.SUGIRU],
   ["来ませんでした", "来る", Form.POLITE_PAST_NEGATIVE],
   ["来ましょう", "来る", Form.POLITE_VOLITIONAL],
@@ -90,7 +92,7 @@ const kuru = [
   ["こず", "くる", Form.ZU]
 ];
 
-const iku = [
+data.iku = [
   ["いって", "いく", Form.TE],
   ["ゆって", "ゆく", Form.TE],
   ["行って", "行く", Form.TE],
@@ -213,7 +215,7 @@ const iku = [
   ["往こう", "往く", Form.VOLITIONAL]
 ];
 
-const special = [
+data.special = [
   ["訪うて", "訪う", Form.TE],
   ["問うて", "問う", Form.TE],
   ["とうて", "とう", Form.TE],
@@ -230,7 +232,7 @@ const special = [
   ["こうた", "こう", Form.PAST]
 ];
 
-const ichidan = [
+data.ichidan = [
   ["ません", "る", Form.POLITE_NEGATIVE],
   ["ました", "る", Form.POLITE_PAST],
   ["らせる", "る", Form.CAUSATIVE],
@@ -257,7 +259,7 @@ const ichidan = [
   ["なさい", "る", Form.NASAI]
 ];
 
-const adjective = [
+data.adjective = [
   ["くありませんでした", "い", Form.POLITE_PAST_NEGATIVE],
   ["くありません", "い", Form.POLITE_NEGATIVE],
   ["かったら", "い", Form.TARA],
@@ -272,7 +274,7 @@ const adjective = [
   ["さ", "い", Form.NOUN]
 ];
 
-const godan = [
+data.godan = [
   ["いませんでした", "う", Form.POLITE_PAST_NEGATIVE],
   ["きませんでした", "く", Form.POLITE_PAST_NEGATIVE],
   ["ぎませんでした", "ぐ", Form.POLITE_PAST_NEGATIVE],
@@ -519,7 +521,7 @@ const godan = [
   ["れば", "る", Form.BA]
 ];
 
-const bogus = [
+data.bogus = [
   "あつ",
   "あぐ",
   "あす",
@@ -561,13 +563,4 @@ const bogus = [
   "にる"
 ];
 
-export default {
-  adjective,
-  ichidan,
-  godan,
-  suru,
-  kuru,
-  special,
-  iku,
-  bogus
-};
+export default data;
