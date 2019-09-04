@@ -1,6 +1,6 @@
 {
   "name": "deinja",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Convert Japanese words into original forms",
   "main": "src/deinja.js",
   "dependencies": {
@@ -13,9 +13,9 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "eslint": "^6.2.2",
+    "eslint": "^6.3.0",
     "jest": "^24.9.0",
-    "webpack": "^4.39.2",
+    "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
   },
   "scripts": {
