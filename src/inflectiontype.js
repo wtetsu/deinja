@@ -33,4 +33,4 @@ const InflectionType = {
   SPECIAL: 10
 };
 
-export default InflectionType;
+module.exports = InflectionType;

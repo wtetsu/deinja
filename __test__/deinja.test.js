@@ -1,4 +1,4 @@
-import deinja from "../src/deinja";
+const deinja = require("../src/deinja");
 
 test("adjectiveTwoChar", () => {
   testDeinflections(

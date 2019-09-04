@@ -76,4 +76,4 @@ class TailSearcher {
   }
 }
 
-export default TailSearcher;
+module.exports = TailSearcher;

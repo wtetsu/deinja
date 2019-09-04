@@ -51,4 +51,4 @@ const Form = {
   CHIMAU: 28
 };
 
-export default Form;
+module.exports = Form;

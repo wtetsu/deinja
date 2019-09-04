@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-import Form from "./form";
-import Deinflection from "./deinflection";
-import TailSearcher from "./tailsearcher";
-import InflectionType from "./inflectiontype";
-import UniqList from "uniqlist";
+const Form = require("./form");
+const Deinflection = require("./deinflection");
+const TailSearcher = require("./tailsearcher");
+const InflectionType = require("./inflectiontype");
+const UniqList = require("uniqlist");
 
 const build = data => {
   const searchers = createSearchers(data);
@@ -28,7 +28,7 @@ const build = data => {
   return newConverter;
 };
 
-export default build;
+module.exports = build;
 
 class Inflection {
   constructor(inflection, base, form) {

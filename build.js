@@ -15,6 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import build from "./src/build";
+const build = require("./src/build");
 
-export default build;
+module.exports = build;

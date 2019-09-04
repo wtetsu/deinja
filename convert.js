@@ -15,6 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import convert from "./src/convert";
+const convert = require("./src/convert");
 
-export default convert;
+module.exports = convert;

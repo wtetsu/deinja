@@ -19,9 +19,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Form from "./form";
+const Form = require("./form");
 
-export default {
+module.exports = {
   suru: [
     ["しませんでした", "する", Form.POLITE_PAST_NEGATIVE],
     ["しましょう", "する", Form.POLITE_VOLITIONAL],
