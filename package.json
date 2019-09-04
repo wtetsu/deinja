@@ -1,6 +1,6 @@
 {
   "name": "deinja",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Convert Japanese words into original forms",
   "main": "src/deinja.js",
   "dependencies": {
