@@ -1,12 +1,14 @@
+<p align="center">
+<a href="https://travis-ci.org/wtetsu/deinja"><img src="https://travis-ci.org/wtetsu/deinja.svg?branch=master" alt="Build Status" /></a>
+<a href="https://codeclimate.com/github/wtetsu/deinja"><img src="https://codeclimate.com/github/wtetsu/deinja/badges/gpa.svg" alt="Code Climate" /></a>
+<a href="https://badge.fury.io/js/deinja"><img src="https://badge.fury.io/js/deinja.svg" alt="npm version" /></a>
+</p>
+
 # deinja
 
-[![Build Status](https://travis-ci.org/wtetsu/deinja.svg?branch=master)](https://travis-ci.org/wtetsu/deinja)
-[![Code Climate](https://codeclimate.com/github/wtetsu/deinja/badges/gpa.svg)](https://codeclimate.com/github/wtetsu/deinja)
-[![npm version](https://badge.fury.io/js/deinja.svg)](https://badge.fury.io/js/deinja)
+deinja is a JavaScript library that converts Japanese words into the original forms.
 
-deinja is a JavaScript library which can convert Japanese words into original forms.
-
-Since this library focuses on lightness and speed rather than accuracy, It doesn't have internal dictionary data. So it returns multiple **candidates**, not the sole converted word.
+Since this library focuses on lightness and speed rather than accuracy, it doesn't have internal dictionary data. Therefore, it returns multiple **candidates**, not the sole word.
 
 This library was once a part of [Mouse Dictionary](https://github.com/wtetsu/mouse-dictionary). It was detached from the application as a form of a portable library.
 
