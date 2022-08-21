@@ -1,9 +1,10 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/515948/185786013-6d6919a3-5142-4711-9728-af4c05afb8d6.png" width="150" alt="logo" /><br/>
+<img src="https://user-images.githubusercontent.com/515948/185797517-6394d86a-061d-48b4-8090-6b27a6d3f767.png" width="150" alt="logo" /><br/>
 <a href="https://travis-ci.org/wtetsu/deinja"><img src="https://travis-ci.org/wtetsu/deinja.svg?branch=master" alt="Build Status" /></a>
 <a href="https://codeclimate.com/github/wtetsu/deinja"><img src="https://codeclimate.com/github/wtetsu/deinja/badges/gpa.svg" alt="Code Climate" /></a>
 <a href="https://badge.fury.io/js/deinja"><img src="https://badge.fury.io/js/deinja.svg" alt="npm version" /></a>
 </p>
+
 
 
 
