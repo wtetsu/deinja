@@ -48,7 +48,7 @@ const Form = {
   ADV: 25,
   NOUN: 26,
   IMPERATIVE_NEGATIVE: 27,
-  CHIMAU: 28
+  CHIMAU: 28,
 };
 
 module.exports = Form;

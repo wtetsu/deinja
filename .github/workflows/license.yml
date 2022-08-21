@@ -1,0 +1,33 @@
+name: License
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install NPM License Checker
+        run: npm install -g license-checker
+      - name: Install Packages
+        run: npm install
+      - name: License
+        run: license-checker --json --out license.json
+      - name: Make HTML
+        run: node build_tools/make_license_html.js license.json
+      - name: Upload
+        uses: softprops/action-gh-release@v1
+        with:
+          files: license.html

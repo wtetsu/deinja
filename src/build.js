@@ -22,9 +22,9 @@ const TailSearcher = require("./tailsearcher");
 const InflectionType = require("./inflectiontype");
 const UniqList = require("uniqlist");
 
-const build = data => {
+const build = (data) => {
   const searchers = createSearchers(data);
-  const newConverter = word => deinflect(word, searchers).map(d => d.baseForm);
+  const newConverter = (word) => deinflect(word, searchers).map((d) => d.baseForm);
   return newConverter;
 };
 
@@ -38,7 +38,7 @@ class Inflection {
   }
 }
 
-const createSearchers = data => {
+const createSearchers = (data) => {
   return {
     adjective: createTailSearcher(data.adjective, "inflection"),
     ichidan: createTailSearcher(data.ichidan, "inflection"),
@@ -47,12 +47,12 @@ const createSearchers = data => {
     kuru: createTailSearcher(data.kuru, "inflection"),
     special: createTailSearcher(data.special, "inflection"),
     iku: createTailSearcher(data.iku, "inflection"),
-    bogus: createTailSearcher(data.bogus)
+    bogus: createTailSearcher(data.bogus),
   };
 };
 
 const createTailSearcher = (list, key) => {
-  const data = list.map(a => new Inflection(...a));
+  const data = list.map((a) => new Inflection(...a));
   return new TailSearcher(data, key);
 };
 
@@ -101,7 +101,7 @@ const deinflectRegular = (terms, inflectionSearcher, inflectionType, processAsAd
 
 const AUX_ADJECTIVE_TYPES = new Set([Form.TAI, Form.SOU, Form.NEGATIVE]);
 
-const isAuxAdjective = form => {
+const isAuxAdjective = (form) => {
   return AUX_ADJECTIVE_TYPES.has(form);
 };
 
@@ -203,10 +203,10 @@ const ICHIDAN = new Set([
   "ベ",
   "ペ",
   "メ",
-  "レ"
+  "レ",
 ]);
 
-const hasIchidanEnding = word => {
+const hasIchidanEnding = (word) => {
   const len = word.length;
   if (len <= 1) {
     return false;

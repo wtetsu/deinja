@@ -43,7 +43,7 @@ module.exports = {
     ["したり", "する", Form.TARI],
     ["しない", "する", Form.NEGATIVE],
     ["します", "する", Form.POLITE],
-    ["しよう", "する", Form.VOLITIONAL]
+    ["しよう", "する", Form.VOLITIONAL],
   ],
 
   kuru: [
@@ -88,7 +88,7 @@ module.exports = {
     ["きた", "くる", Form.PAST],
     ["きて", "くる", Form.TE],
     ["こい", "くる", Form.IMPERATIVE],
-    ["こず", "くる", Form.ZU]
+    ["こず", "くる", Form.ZU],
   ],
 
   iku: [
@@ -211,7 +211,7 @@ module.exports = {
     ["行こう", "行く", Form.VOLITIONAL],
     ["征こう", "征く", Form.VOLITIONAL],
     ["逝こう", "逝く", Form.VOLITIONAL],
-    ["往こう", "往く", Form.VOLITIONAL]
+    ["往こう", "往く", Form.VOLITIONAL],
   ],
 
   special: [
@@ -228,7 +228,7 @@ module.exports = {
     ["乞うた", "乞う", Form.PAST],
     ["恋うた", "恋う", Form.PAST],
     ["請うた", "請う", Form.PAST],
-    ["こうた", "こう", Form.PAST]
+    ["こうた", "こう", Form.PAST],
   ],
 
   ichidan: [
@@ -255,7 +255,7 @@ module.exports = {
     ["ましょう", "る", Form.POLITE_VOLITIONAL],
     ["させる", "る", Form.CAUSATIVE],
     ["すぎる", "る", Form.SUGIRU],
-    ["なさい", "る", Form.NASAI]
+    ["なさい", "る", Form.NASAI],
   ],
 
   adjective: [
@@ -270,7 +270,7 @@ module.exports = {
     ["くて", "い", Form.TE],
     ["そう", "い", Form.SOU],
     ["く", "い", Form.ADV],
-    ["さ", "い", Form.NOUN]
+    ["さ", "い", Form.NOUN],
   ],
 
   godan: [
@@ -517,7 +517,7 @@ module.exports = {
     ["らない", "る", Form.NEGATIVE],
     ["られる", "る", Form.POTENTIAL_OR_PASSIVE],
     ["られ", "る", Form.POTENTIAL_OR_PASSIVE],
-    ["れば", "る", Form.BA]
+    ["れば", "る", Form.BA],
   ],
 
   bogus: [
@@ -559,6 +559,6 @@ module.exports = {
     "やつ",
     "らる",
     "んでしる",
-    "にる"
-  ]
+    "にる",
+  ],
 };

@@ -30,7 +30,7 @@ const InflectionType = {
   KURERU: 7,
   SPECIAL_RU: 8,
   SPECIAL_ARU: 9,
-  SPECIAL: 10
+  SPECIAL: 10,
 };
 
 module.exports = InflectionType;
