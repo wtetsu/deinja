@@ -28,15 +28,15 @@ class TailSearcher {
 
   createMap(list, key) {
     let maxLength = 0;
-    const map = {};
+    const map = new Map();
     for (let i = 0; i < list.length; i++) {
       const obj = list[i];
       const str = key ? obj[key] : obj;
 
-      let arr = map[str];
+      let arr = map.get(str);
       if (!arr) {
         arr = [];
-        map[str] = arr;
+        map.set(str, arr);
       }
       arr.push(obj);
 
@@ -49,11 +49,10 @@ class TailSearcher {
 
   search(str) {
     const result = [];
-    const len = str.length < this.maxLength ? str.length : this.maxLength;
-
+    const len = Math.min(str.length, this.maxLength);
     for (let i = len; i >= 1; i--) {
-      const tail = str.substring(str.length - i, str.length);
-      const r = this.map[tail];
+      const tail = str.substring(str.length - i);
+      const r = this.map.get(tail);
       if (r) {
         result.push(...r);
       }
@@ -62,17 +61,14 @@ class TailSearcher {
   }
 
   find(str) {
-    let result = null;
     const len = str.length < this.maxLength ? str.length : this.maxLength;
     for (let i = len; i >= 1; i--) {
-      const tail = str.substring(str.length - i, str.length);
-      const r = this.map[tail];
-      if (r) {
-        result = true;
-        break;
+      const tail = str.substring(str.length - i);
+      if (this.map.has(tail)) {
+        return true;
       }
     }
-    return result;
+    return false;
   }
 }
 

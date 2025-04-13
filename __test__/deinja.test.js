@@ -201,6 +201,54 @@ test("aisuru", () => {
   );
 });
 
+const TailSearcher = require("../src/tailsearcher");
+
+test("TailSearcher.find - 存在する語尾を検索", () => {
+  // テストデータ準備
+  const list = [
+    { inflection: "る", base: "" },
+    { inflection: "ます", base: "る" },
+  ];
+
+  const searcher = new TailSearcher(list, "inflection");
+
+  // マップに存在する語尾を検索すると true を返す
+  expect(searcher.find("食べます")).toBe(true);
+  expect(searcher.find("走る")).toBe(true);
+});
+
+test("TailSearcher.find - 存在しない語尾を検索", () => {
+  // テストデータ準備
+  const list = [
+    { inflection: "る", base: "" },
+    { inflection: "ます", base: "る" },
+  ];
+
+  const searcher = new TailSearcher(list, "inflection");
+
+  // マップに存在しない語尾を検索すると false を返す
+  expect(searcher.find("歩く")).toBe(false);
+  expect(searcher.find("")).toBe(false);
+});
+
+test("TailSearcher.find - エッジケース", () => {
+  // 空のリスト
+  const emptySearcher = new TailSearcher([], "inflection");
+  expect(emptySearcher.find("何か")).toBe(false);
+
+  // maxLengthより長い文字列
+  const list = [{ inflection: "い", base: "" }];
+  const searcher = new TailSearcher(list, "inflection");
+
+  // maxLengthは1だが、長い文字列でも末尾が一致すれば見つかる
+  expect(searcher.find("美しい")).toBe(true);
+
+  // キーなしでの初期化
+  const noKeyList = ["る", "ます"];
+  const noKeySearcher = new TailSearcher(noKeyList);
+  expect(noKeySearcher.find("食べます")).toBe(true);
+});
+
 const testDeinflections = (base, ...args) => {
   for (let i = 0; i < args.length; i++) {
     const words = deinja.convert(args[i]);
