@@ -1,0 +1,13 @@
+exclude_patterns  = [
+  "dist*/",
+  "coverage/",
+  "node_modules/",
+  "__test__/",
+  ".git/",
+  ".github/",
+  ".vscode/",
+  ".tools/"
+]
+
+[smells.return_statements]
+threshold = 10

@@ -1,5 +1,8 @@
 name: Test
 
+permissions:
+  contents: read
+
 on: [push, pull_request]
 
 jobs:
@@ -11,15 +14,17 @@ jobs:
         node-version: [23.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install codecov
-        run: npm install -g codecov
       - name: Install Packages
         run: npm install
+      - name: Install Qlty CLI
+        uses: qltysh/qlty-action/install@v1
+      - name: Run Qlty Check
+        run: qlty check
       - name: Lint
         run: npm run lint
       - name: Run Unit Tests

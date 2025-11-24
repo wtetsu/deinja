@@ -1,7 +1,7 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/515948/185797517-6394d86a-061d-48b4-8090-6b27a6d3f767.png" width="150" alt="logo" /><br/>
 <a href="https://github.com/wtetsu/deinja/actions/workflows/test.yml"><img src="https://github.com/wtetsu/deinja/actions/workflows/test.yml/badge.svg" alt="Build Status" /></a>
-<a href="https://codeclimate.com/github/wtetsu/deinja"><img src="https://codeclimate.com/github/wtetsu/deinja/badges/gpa.svg" alt="Code Climate" /></a>
+<a href="https://qlty.sh/gh/wtetsu/projects/deinja"><img src="https://qlty.sh/gh/wtetsu/projects/deinja/maintainability.svg" alt="Maintainability" /></a>
 <a href="https://codecov.io/gh/wtetsu/deinja"><img src="https://codecov.io/gh/wtetsu/deinja/branch/master/graph/badge.svg?token=ryUgLvR4LK" alt="codecov" /></a>
 <a href="https://badge.fury.io/js/deinja"><img src="https://badge.fury.io/js/deinja.svg" alt="npm version" /></a>
 </p>
