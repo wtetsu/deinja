@@ -29,7 +29,7 @@ const makeLicenseContent = (licenseRecords) => {
     const record = licenseRecords[key];
     const licenses = record.licenses;
     const name = record.publisher ?? "Link";
-    const href = record.repository ?? licenseContent.url;
+    const href = record.repository ?? record.url;
 
     if (!summary[licenses]) {
       summary[licenses] = 0;
@@ -38,6 +38,7 @@ const makeLicenseContent = (licenseRecords) => {
 
     licenseContent += `  <li><a href="${href}" target="_blank" rel="noopener noreferrer" title="${version}">${title}</a><span class="license">(${licenses})</span> <span class="publisher">${name}</span></li>\n`;
   }
+  licenseContent += "</ul>";
 
   return { licenseContent, summary };
 };
@@ -79,18 +80,14 @@ const makeHtmlContent = (licenseContent) => {
        a:hover{
          text-decoration: underline;
        }
-       .version {
-         font-size: 0.8em;
-         color: #4a4a4a;
-       }      
-       .license {
+       .version, .license {
          font-size: 0.8em;
          color: #4a4a4a;
        }
        .publisher {
          font-size: 0.5em;
          color: #4a4a4a;
-       }    
+       }
      </style>
    </head>
    <body>
